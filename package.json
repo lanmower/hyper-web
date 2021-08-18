@@ -4,7 +4,7 @@
   "version": "0.0.41",
   "description": "serve websites from anywhere",
   "homepage": "https://southcoast.ga",
-  "main": "main.js",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron --trace-warnings .",
@@ -59,10 +59,10 @@
     "express": "^3.18.0",
     "hi-base32": "^0.5.1",
     "hypercore-crypto": "^2.3.0",
-    "pkg": "^5.3.1",
-    "pump": "^3.0.0",
-    "serve-index": "^1.9.1",
-    "socksv5": "^0.0.6"
+    "chokidar": "^3.4.3",
+    "drag-drop": "^6.1.0",
+    "fs-extra": "^9.0.1",
+    "open": "^7.3.0"
   },
   "productName": "hyperweb"
 }
