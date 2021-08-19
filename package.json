@@ -1,5 +1,5 @@
 {
-  "name": "hyperweb",
+  "name": "hyper-web",
   "author": "Lanmower <almagestfraternite@gmail.com",
   "version": "0.0.41",
   "description": "serve websites from anywhere",
@@ -13,7 +13,7 @@
     "publish": "electron-builder -p always"
   },
   "build": {
-    "appId": "oo.computer",
+    "appId": "hyper-web",
     "win": {
       "target": [
         "nsis"
@@ -41,7 +41,7 @@
     },
     "asar": true,
     "extraFiles": [
-      "files"
+      "files","src"
     ],
     "files": [
       "!electron-builder.env"
@@ -56,13 +56,16 @@
   },
   "dependencies": {
     "@hyperswarm/dht": "next",
-    "express": "^3.18.0",
-    "hi-base32": "^0.5.1",
-    "hypercore-crypto": "^2.3.0",
     "chokidar": "^3.4.3",
     "drag-drop": "^6.1.0",
+    "express": "^3.18.0",
+    "express-http-proxy": "^1.6.2",
     "fs-extra": "^9.0.1",
-    "open": "^7.3.0"
+    "hi-base32": "^0.5.1",
+    "hypercore-crypto": "^2.3.0",
+    "live-plugin-manager": "^0.15.1",
+    "open": "^7.3.0",
+    "serve-index": "^1.9.1"
   },
   "productName": "hyperweb"
 }

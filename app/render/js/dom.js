@@ -60,5 +60,5 @@ exports.displayFiles = ( files = [] ) => {
 
 exports.displayHash = ( hash = '' ) => {
     const hashElem = document.getElementById( 'hash' );
-    hashElem.innerHTML = `<a href="#" onClick="navigator.clipboard.writeText('https://${hash}.southcoast.ga', 'clipboard')">Copy url</a>`;
+    hashElem.innerHTML = `<a href="#" onClick="navigator.clipboard.writeText('https://${hash}.southcoast.ga/', 'clipboard')">Copy url</a>`;
 };
