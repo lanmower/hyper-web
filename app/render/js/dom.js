@@ -50,7 +50,8 @@ exports.displayFiles = ( files = [] ) => {
                 <p class='app__files__item__info__name'>${ file.name }</p>
                 <p class='app__files__item__info__size'>${ file.size }KB</p>
             </div>
-            <img onclick='deleteFile("${ file.name }")' src='../assets/delete.svg' class='app__files__item__delete'/>
+            <a onClick="navigator.clipboard.writeText('https://'+window.hash+'.southcoast.ga/${ file.name }', 'clipboard')" style="margin-right:15px" class='app__files__item__delete'>🔗</a>
+            <img  onclick='deleteFile("${ file.name }")' src='../assets/delete.svg' class='app__files__item__delete'/>
             <img onclick='openFile("${ file.name }")' src='../assets/open.svg' class='app__files__item__open'/>
         `;
 
@@ -60,5 +61,6 @@ exports.displayFiles = ( files = [] ) => {
 
 exports.displayHash = ( hash = '' ) => {
     const hashElem = document.getElementById( 'hash' );
+    window.hash=hash;
     hashElem.innerHTML = `<a href="#" onClick="navigator.clipboard.writeText('https://${hash}.southcoast.ga/', 'clipboard')">Copy url</a>`;
 };

@@ -1,4 +1,5 @@
 node_modules
+plugin_packages
 dist
 .github
 files

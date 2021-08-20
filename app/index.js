@@ -5,21 +5,21 @@ var b32 = require("hi-base32");
 let salt = process.argv.length>1?process.argv[process.argv.length-1]:null;
 if(salt == '.') salt = null;
 const key = (salt&&salt.length)?crypto.data(Buffer.from(salt)):null;
-console.log(salt);
 const keyPair = crypto.keyPair(key);
+//const pump = require('pump');
 
-
-var serveIndex = require('serve-index');
 const { app, BrowserWindow, ipcMain, dialog } = require( 'electron' );
 const path = require( 'path' );
-const fs = require('fs');
+var net = require("net");
 
 const createServer = (port, keyPair)=>{
    const server = node.createServer();
+   
    server.on("connection", function(socket) {
    console.log('con');
    let open = { local:true, remote:true };
    var local = net.connect(port, "localhost");
+   // pump(local,socket,local);
    local.on('data', (d)=>{socket.write(d)});
    socket.on('data', (d)=>{local.write(d)});
  
@@ -37,8 +37,8 @@ const createServer = (port, keyPair)=>{
    socket.on('finish', localend)
    socket.on('error', localend)
    socket.on('end', localend)
- });
- console.log('listening', keyPair.publicKey.toString('hex'));
+   });
+ console.log('listening', keyPair.publicKey.toString('hex'), b32.encode(keyPair.publicKey).replace('====','').toLowerCase());
  server.listen(keyPair);
 }
 
@@ -87,12 +87,6 @@ app.on( 'activate', () => {
     }
 } );
 
-var express = require('express');
-var ap = global.app = express();
-
-ap.listen(8081);
-createServer(8081, keyPair);
-var net = require("net");
  
 //mainWindow.loadURL('http://localhost:8081/url')
 process.on('uncaughtException', (err) => {
@@ -151,9 +145,8 @@ ipcMain.on( 'app:on-file-copy', ( event, file ) => {
     } );
 } );
 
+createServer(8081, keyPair);
 
 require('./plugin-loader');
 const local = path.resolve( require('electron').app.getAppPath().indexOf('asar')!=-1?require('electron').app.getAppPath().toString()+'../../../src':'./src');
-console.log(local, 'local')
 require( local );
-ap.use('/', serveIndex('files'), express.static('files'), serveIndex('render'));
