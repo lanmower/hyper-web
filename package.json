@@ -38,6 +38,7 @@
     "deb": {},
     "asar": true,
     "extraFiles": [
+      "actions",
       "files",
       "src"
     ],
