@@ -11,15 +11,19 @@ ipcRenderer.invoke( 'app:get-files' ).then( ( files = [] ) => {
     dom.displayFiles( files );
 } );
 
-ipcRenderer.invoke( 'app:get-hash' ).then( ( hash='' ) => {
-    dom.displayHash( hash );
-} );
 
 // handle file delete event
 ipcRenderer.on( 'app:delete-file', ( event, filename ) => {
     document.getElementById( filename ).remove();
 } );
 
+ipcRenderer.on( 'app:loaded', ( event, filename ) => {
+    console.log('test');
+    ipcRenderer.invoke( 'app:get-hash' ).then( ( hash='' ) => {
+        dom.displayHash( hash );
+    } );
+    document.getElementById( filename ).remove();
+} );
 /*****************************/
 
 // add files drop listener

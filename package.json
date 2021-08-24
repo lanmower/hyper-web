@@ -16,7 +16,7 @@
     "appId": "hyper-web",
     "win": {
       "target": [
-        "nsis"
+        "portable"
       ],
       "icon": "./icon512wb.png",
       "publish": {
@@ -36,12 +36,10 @@
       }
     },
     "deb": {},
-    "nsis": {
-      "oneClick": true
-    },
     "asar": true,
     "extraFiles": [
-      "files","src"
+      "files",
+      "src"
     ],
     "files": [
       "!electron-builder.env"
@@ -56,14 +54,19 @@
   },
   "dependencies": {
     "@hyperswarm/dht": "next",
+    "bignumber.js": "^9.0.1",
     "chokidar": "^3.4.3",
     "drag-drop": "^6.1.0",
     "express": "^3.18.0",
     "express-http-proxy": "^1.6.2",
     "fs-extra": "^9.0.1",
     "hi-base32": "^0.5.1",
+    "hyper-sdk": "^3.0.9",
+    "hyperbee": "^1.0.0-7",
     "hypercore-crypto": "^2.3.0",
     "live-plugin-manager": "^0.15.1",
+    "msgpackr": "^1.4.2",
+    "msgpackr-extract": "latest",
     "open": "^7.3.0",
     "serve-index": "^1.9.1"
   },

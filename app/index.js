@@ -7,7 +7,7 @@ if(salt == '.') salt = null;
 const key = (salt&&salt.length)?crypto.data(Buffer.from(salt)):null;
 const keyPair = crypto.keyPair(key);
 //const pump = require('pump');
-
+const PORT = process.env.PORT = 8081;
 const { app, BrowserWindow, ipcMain, dialog } = require( 'electron' );
 const path = require( 'path' );
 var net = require("net");
@@ -46,7 +46,7 @@ const createServer = (port, keyPair)=>{
 const io = require( './main/io' );
 // open a window
 const openWindow = () => {
-    const win = new BrowserWindow( {
+    const win = global.win = new BrowserWindow( {
         width: 800,
         height: 500,
         webPreferences: {
@@ -59,7 +59,7 @@ const openWindow = () => {
     win.loadFile( path.resolve( __dirname, 'render/html/index.html' ) );
 
     /*-----*/
-    
+
     return win; // return window
 };
 
@@ -70,6 +70,8 @@ app.on( 'ready', () => {
     // watch files
     io.watchFiles( win );
 } );
+
+
 
 // when all windows are closed, quit the app
 app.on( 'window-all-closed', () => {
@@ -88,7 +90,7 @@ app.on( 'activate', () => {
 } );
 
  
-//mainWindow.loadURL('http://localhost:8081/url')
+//mainWindow.loadURL('http://localhost:'+PORT+'/url')
 process.on('uncaughtException', (err) => {
     console.error('There was an uncaught error', err)
 })
@@ -145,8 +147,17 @@ ipcMain.on( 'app:on-file-copy', ( event, file ) => {
     } );
 } );
 
-createServer(8081, keyPair);
+createServer(PORT, keyPair);
+
+global.crypto = require("hypercore-crypto");
+global.Packr = require("msgpackr").Packr;
+global.BigNumber = require("bignumber.js").BigNumber;
+global.Hyperbee = require('hyperbee');
+global.SDK = require("hyper-sdk");
 
 require('./plugin-loader');
 const local = path.resolve( require('electron').app.getAppPath().indexOf('asar')!=-1?require('electron').app.getAppPath().toString()+'../../../src':'./src');
 require( local );
+global.loaded = ()=>{
+    win.webContents.send( 'app:loaded' );
+}
